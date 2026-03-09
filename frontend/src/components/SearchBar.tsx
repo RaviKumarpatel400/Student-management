@@ -1,4 +1,5 @@
 import React from 'react';
+import { Search } from 'lucide-react';
 
 interface SearchBarProps {
   value: string;
@@ -11,13 +12,13 @@ export const SearchBar: React.FC<SearchBarProps> = ({ value, onChange }) => {
       <input
         type="text"
         placeholder="Search by name or email..."
-        className="w-full rounded-full border border-slate-700 bg-slate-900/80 px-9 py-2 text-sm text-slate-100 shadow-inner shadow-slate-950/40 placeholder:text-slate-500 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
+        className="w-full rounded-xl border border-slate-300 bg-white px-10 py-2.5 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 transition-colors focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/10 h-[42px]"
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
-      <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">
-        🔍
-      </span>
+      <div className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+        <Search className="w-4 h-4" />
+      </div>
     </div>
   );
 };

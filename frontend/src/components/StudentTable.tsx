@@ -1,4 +1,5 @@
 import React from 'react';
+import { Edit2, Trash2, UserPlus } from 'lucide-react';
 import type { Student } from '../types';
 
 interface StudentTableProps {
@@ -15,39 +16,39 @@ export const StudentTable: React.FC<StudentTableProps> = ({
   onDelete,
 }) => {
   return (
-    <div className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/60 shadow-xl shadow-slate-950/40">
-      <table className="min-w-full divide-y divide-slate-800">
-        <thead className="bg-slate-900/80">
+    <div className="overflow-hidden rounded-2xl border-2 border-slate-100 bg-white shadow-sm">
+      <table className="min-w-full divide-y-2 divide-slate-100">
+        <thead className="bg-slate-50/50">
           <tr>
-            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
+            <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-slate-400">
               Name
             </th>
-            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
+            <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-slate-400">
               Email
             </th>
-            <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
+            <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-widest text-slate-400">
               Age
             </th>
-            <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-400">
+            <th className="px-6 py-4 text-right text-xs font-bold uppercase tracking-widest text-slate-400">
               Actions
             </th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-slate-800 bg-slate-950/60">
+        <tbody className="divide-y divide-slate-100 bg-white">
           {loading ? (
             Array.from({ length: 5 }).map((_, idx) => (
               <tr key={idx}>
                 <td className="px-4 py-4">
-                  <div className="h-4 w-32 animate-pulse rounded bg-slate-800" />
+                  <div className="h-4 w-32 animate-pulse rounded bg-slate-200" />
                 </td>
                 <td className="px-4 py-4">
-                  <div className="h-4 w-40 animate-pulse rounded bg-slate-800" />
+                  <div className="h-4 w-40 animate-pulse rounded bg-slate-200" />
                 </td>
                 <td className="px-4 py-4">
-                  <div className="h-4 w-10 animate-pulse rounded bg-slate-800" />
+                  <div className="h-4 w-10 animate-pulse rounded bg-slate-200" />
                 </td>
                 <td className="px-4 py-4 text-right">
-                  <div className="ml-auto h-8 w-32 animate-pulse rounded bg-slate-800" />
+                  <div className="ml-auto h-8 w-32 animate-pulse rounded bg-slate-200" />
                 </td>
               </tr>
             ))
@@ -55,38 +56,46 @@ export const StudentTable: React.FC<StudentTableProps> = ({
             <tr>
               <td
                 colSpan={4}
-                className="px-4 py-8 text-center text-sm text-slate-400"
+                className="px-4 py-12 text-center"
               >
-                No students found. Try adding a new one.
+                <div className="flex flex-col items-center justify-center text-slate-500">
+                  <div className="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center mb-3">
+                    <UserPlus className="w-6 h-6 text-slate-400" />
+                  </div>
+                  <p className="text-sm font-medium text-slate-600">No students found</p>
+                  <p className="text-xs mt-1">Try adding a new student to get started.</p>
+                </div>
               </td>
             </tr>
           ) : (
             students.map((student) => (
-              <tr key={student.id}>
-                <td className="px-4 py-3 text-sm font-medium text-slate-100">
+              <tr key={student.id} className="hover:bg-slate-50/80 transition-colors">
+                <td className="px-6 py-4 text-sm font-semibold text-slate-900">
                   {student.name}
                 </td>
-                <td className="px-4 py-3 text-sm text-slate-300">
+                <td className="px-6 py-4 text-sm text-slate-500">
                   {student.email}
                 </td>
-                <td className="px-4 py-3 text-sm text-slate-300">
+                <td className="px-6 py-4 text-sm font-medium text-slate-500">
                   {student.age}
                 </td>
-                <td className="px-4 py-3 text-right">
+                <td className="px-6 py-4 text-right">
                   <div className="flex justify-end gap-2">
                     <button
                       type="button"
                       onClick={() => onEdit(student)}
-                      className="btn-secondary px-3 py-1 text-xs"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-600 border border-slate-200 bg-white hover:bg-slate-50 hover:text-slate-900 transition-colors shadow-sm"
+                      title="Edit Student"
                     >
-                      Edit
+                      <Edit2 className="w-3.5 h-3.5" /> Edit
                     </button>
                     <button
                       type="button"
                       onClick={() => onDelete(student)}
-                      className="btn-primary px-3 py-1 text-xs bg-red-600 hover:bg-red-700"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-red-600 border border-red-100 bg-red-50 hover:bg-red-100 transition-colors shadow-sm"
+                      title="Delete Student"
                     >
-                      Delete
+                      <Trash2 className="w-3.5 h-3.5" /> Delete
                     </button>
                   </div>
                 </td>

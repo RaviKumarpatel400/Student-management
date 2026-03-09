@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { X } from 'lucide-react';
 import type { Student } from '../types';
 
 export interface StudentFormValues {
@@ -72,97 +73,103 @@ export const StudentModal: React.FC<StudentModalProps> = ({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-40 flex items-center justify-center bg-slate-950/70 backdrop-blur-sm">
-      <div className="glass-card w-full max-w-md p-6">
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-semibold">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4 sm:p-6 animate-in fade-in duration-200">
+      <div className="w-full max-w-lg overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-slate-900/5 animate-in zoom-in-95 duration-200">
+        <div className="flex items-center justify-between border-b border-slate-100 px-8 py-5 bg-white">
+          <h2 className="text-xl font-bold text-slate-900">
             {initial ? 'Edit Student' : 'Add Student'}
           </h2>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full p-1 text-slate-400 hover:bg-slate-800 hover:text-slate-100"
+            className="rounded-full p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition-colors"
+            aria-label="Close"
           >
-            ✕
+            <X className="w-5 h-5" />
           </button>
         </div>
+        <div className="p-8 bg-slate-50/30">
         <form
           onSubmit={handleSubmit(async (values) => {
             await onSubmit(values);
             onClose();
           })}
-          className="space-y-4"
+          className="flex flex-col gap-6"
         >
           <div>
-            <label className="block text-xs font-medium text-slate-300">
-              Name
+            <label className="mb-1.5 block text-sm font-semibold text-slate-700">
+              Full Name
             </label>
             <input
               type="text"
-              className="mt-1 w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-slate-100 shadow-inner shadow-slate-950/40 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
+              placeholder="e.g. John Doe"
+              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-colors shadow-sm"
               {...register('name')}
             />
             {errors.name && (
-              <p className="mt-1 text-xs text-red-400">
+              <p className="mt-1.5 text-xs font-medium text-red-500 flex items-center gap-1">
                 {errors.name.message}
               </p>
             )}
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-300">
-              Email
+            <label className="mb-1.5 block text-sm font-semibold text-slate-700">
+              Email Address
             </label>
             <input
               type="email"
-              className="mt-1 w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-slate-100 shadow-inner shadow-slate-950/40 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
+              placeholder="john@example.com"
+              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-colors shadow-sm"
               {...register('email')}
             />
             {errors.email && (
-              <p className="mt-1 text-xs text-red-400">
+              <p className="mt-1.5 text-xs font-medium text-red-500 flex items-center gap-1">
                 {errors.email.message}
               </p>
             )}
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-300">
+            <label className="mb-1.5 block text-sm font-semibold text-slate-700">
               Age
             </label>
             <input
               type="number"
               min={1}
-              className="mt-1 w-full rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-sm text-slate-100 shadow-inner shadow-slate-950/40 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
+              placeholder="e.g. 21"
+              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-colors shadow-sm"
               {...register('age')}
             />
             {errors.age && (
-              <p className="mt-1 text-xs text-red-400">
+              <p className="mt-1.5 text-xs font-medium text-red-500 flex items-center gap-1">
                 {errors.age.message}
               </p>
             )}
           </div>
-          <div className="mt-4 flex justify-end gap-2">
+          <div className="mt-4 pt-6 border-t border-slate-100 flex justify-end gap-3">
             <button
               type="button"
               onClick={onClose}
-              className="btn-secondary px-4 py-2"
+              className="btn-secondary px-5 py-2.5 text-sm font-medium border-slate-200 hover:bg-white"
               disabled={isSubmitting}
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="btn-primary px-4 py-2"
+              className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-6 py-2.5 text-sm font-bold text-white shadow-sm transition-all hover:bg-blue-700 active:scale-95 disabled:opacity-70 shadow-blue-600/20"
               disabled={isSubmitting}
             >
               {isSubmitting
                 ? initial
-                  ? 'Saving...'
-                  : 'Creating...'
+                  ? 'Saving changes...'
+                  : 'Adding student...'
                 : initial
-                  ? 'Save changes'
-                  : 'Create'}
+                  ? 'Save Changes'
+                  : 'Add Student'}
             </button>
           </div>
         </form>
+        </div>
       </div>
     </div>
   );

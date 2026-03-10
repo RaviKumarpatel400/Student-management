@@ -14,7 +14,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-slate-800 to-black text-lg font-extrabold text-white shadow-md shadow-slate-200">
               SM
             </div>
-            <div>
+            <div className="hidden sm:block">
               <div className="text-lg font-bold tracking-tight text-slate-900 leading-none">
                 Student Management System
               </div>

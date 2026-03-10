@@ -16,7 +16,7 @@ export const StudentTable: React.FC<StudentTableProps> = ({
   onDelete,
 }) => {
   return (
-    <div className="overflow-hidden rounded-2xl border-2 border-slate-100 bg-white shadow-sm">
+    <div className="overflow-x-auto rounded-2xl border-2 border-slate-100 bg-white shadow-sm w-full">
       <table className="min-w-full divide-y-2 divide-slate-100">
         <thead className="bg-slate-50/50">
           <tr>
